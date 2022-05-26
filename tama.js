@@ -9,10 +9,23 @@ let hambre = 5;
 let amor = 0;
 let sucio = false;
 let enfermo = false;
+let vecesPulsadoBotonCentro = 0;
+let iniciado = false;
 
+alert ('Tu tamagochi esta apunto de nacer, ayudalo a nacer pulsando el boton central');
 
-inicio ();
+function clickBotonCentro () {
+    if (!iniciado) {
+        if (vecesPulsadoBotonCentro<5) {
+            vecesPulsadoBotonCentro ++;
+        }
+        else {
+            iniciado=true;
+            inicio ();
+        }
 
+    }
+}
 
 function inicio () {
     console.log ('se inicia el juego');
