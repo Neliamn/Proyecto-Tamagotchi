@@ -49,8 +49,21 @@ function nacimiento () {
         if (numAleatorio == 12) {
             console.log ('ha nacido');
             haNacido = true;
+            comprobacionFases();
         }
 
     }
 }
 
+function comprobacionFases(){
+
+    if(fases != undefined && fases.length > 0){
+        console.log("Las fases existentes del tamagotchi son:")
+        for(let i=0;i<fases.length;i++){
+            console.log(`Fase ${i+1}: ${fases[i]}`);
+        }
+    }else{
+        console.log("El array de fases no es válido o no está completo.");
+    }
+
+}
