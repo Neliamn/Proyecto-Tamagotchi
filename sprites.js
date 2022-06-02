@@ -1,4 +1,8 @@
 const fases = ['huevo', 'bebe', 'adulto', 'muerto'];
+
+const animacionNoNacimiento = ['huevo0','huevo1','huevo0','huevo1','huevo0','huevo1'];
+const animacionNacimiento = ['huevo0','huevo1','huevo0','huevo1','huevo2','huevo3'];
+
 const sprites = {
     huevo: {
         huevo0: {

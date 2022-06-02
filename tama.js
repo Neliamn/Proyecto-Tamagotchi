@@ -50,6 +50,7 @@ function nacimiento () {
             console.log ('ha nacido');
             haNacido = true;
             comprobacionFases();
+            comprobacionSprites();
         }
 
     }
@@ -65,5 +66,40 @@ function comprobacionFases(){
     }else{
         console.log("El array de fases no es válido o no está completo.");
     }
+
+}
+
+function comprobacionSprites(){
+    comprobacionEstadoHuevo();
+}
+
+function comprarTamanioFilas(coleccion, nombre){
+
+    if(coleccion.length == 16){
+        console.log(`La coleccion de datos para ${nombre} es correcta.`);
+    }
+    else{
+        console.log(`La coleccion de datos para ${nombre} NO es correcta.`);
+    }
+
+}
+
+function comprobacionEstadoHuevo(){
+    let huevo = sprites['huevo'];
+    let huevosHijo = Object.keys(huevo);
+
+    for(let i=0;i<huevosHijo.length;i++){
+
+        let claveHijo = huevosHijo[i];
+        let values = sprites['huevo'][claveHijo];
+        let nombresHijos = Object.keys(values);
+
+        if(nombresHijos.length < 16){
+            console.log('Se encontró un sprite con un tamaño irregular');
+            return;
+        }        
+    }
+
+    console.log('Todos los sprites del estado huevo, tienen el tamaño correcto.');
 
 }
