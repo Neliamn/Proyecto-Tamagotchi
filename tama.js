@@ -12,7 +12,7 @@ let enfermo = false;
 let vecesPulsadoBotonCentro = 0;
 let iniciado = false;
 
-alert ('Tu tamagochi esta apunto de nacer, ayudalo a nacer pulsando el boton central');
+inicializarGrid(sprites.pantallaInicio.pantallaInicio0);
 
 function clickBotonCentro () {
     if (!iniciado) {
@@ -27,6 +27,14 @@ function clickBotonCentro () {
     }
 }
 
+function clickBotonDerecha(){
+    inicializarGrid(sprites.huevo.huevo1);
+}
+
+function clickBotonIzquierdo(){
+    inicializarGrid(sprites.huevo.huevo0);
+}
+
 function inicio () {
     console.log ('se inicia el juego');
     /* comprobamos el estado del tamagotchi */
@@ -39,7 +47,6 @@ function inicio () {
     }
 }
 
-
 function nacimiento () {
 
     let haNacido = false;
@@ -49,6 +56,7 @@ function nacimiento () {
         if (numAleatorio == 12) {
             console.log ('ha nacido');
             haNacido = true;
+            inicializarGrid(sprites.huevo.huevo0);
             comprobacionFases();
             comprobacionSprites();
         }
@@ -101,5 +109,45 @@ function comprobacionEstadoHuevo(){
     }
 
     console.log('Todos los sprites del estado huevo, tienen el tamaño correcto.');
+}
 
+function inicializarGrid(sprite){
+    document.getElementById('screen').innerHTML = generadorFilas(sprite);
+}
+
+
+function generadorFilas(objetoSprite){
+
+    let resultadoFinal = '';
+
+    let arrayFilas = Object.keys(objetoSprite);
+    let arrayColumnas = Object.values(objetoSprite);
+
+    for(var i=0;i<arrayFilas.length;i++){
+
+        let fila = `<div id='${i}' class="flex-container">`;
+        let arrayColumnas = objetoSprite[arrayFilas[i]];
+
+        for(var a=0;a<arrayColumnas.length;a++){
+            if(arrayColumnas[a] == undefined){
+                fila = fila + generadorColumnas(i,a,'#74aca3');
+            }
+            else{
+                fila = fila + generadorColumnas(i,a,arrayColumnas[a]);
+            }
+            
+        }
+
+        fila = fila + '</div>';
+
+        resultadoFinal = resultadoFinal + fila;
+
+    }
+
+    return resultadoFinal;
+
+}
+
+function generadorColumnas(indiceFila, indiceColumna, color){
+    return `<div id='${indiceFila + '_' + indiceColumna}' class="flex-item" style='background-color:${color}'></div>`;
 }

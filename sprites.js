@@ -1,9 +1,26 @@
 const fases = ['huevo', 'bebe', 'adulto', 'muerto'];
 
-const animacionNoNacimiento = ['huevo0','huevo1','huevo0','huevo1','huevo0','huevo1'];
-const animacionNacimiento = ['huevo0','huevo1','huevo0','huevo1','huevo2','huevo3'];
-
 const sprites = {
+    pantallaInicio:{
+        pantallaInicio0: {
+            fila0: new Array(32),
+            fila1: new Array(32),
+            fila2: new Array(32),
+            fila3: new Array(32),
+            fila4: new Array(32),
+            fila5: new Array(32),
+            fila6: new Array(32),
+            fila7: new Array(32),
+            fila8: new Array(32),
+            fila9: new Array(32),
+            fila10: new Array(32),
+            fila11: new Array(32),
+            fila12: new Array(32),
+            fila13: new Array(32),
+            fila14: new Array(32),
+            fila15: new Array(32)
+        }
+    },
     huevo: {
         huevo0: {
             fila0: ['#74aca3', '#74aca3', '#74aca3', '#74aca3', '#74aca3', '#74aca3', '#74aca3', '#74aca3', '#74aca3', '#74aca3', '#74aca3', '#74aca3', '#74aca3', '#74aca3', '#74aca3', '#74aca3', '#74aca3', '#74aca3', '#74aca3', '#74aca3', '#74aca3', '#74aca3', '#74aca3', '#74aca3', '#74aca3', '#74aca3', '#74aca3', '#74aca3', '#74aca3', '#74aca3', '#74aca3', '#74aca3'],
@@ -78,4 +95,11 @@ const sprites = {
             fila15: ['#74aca3', '#74aca3', '#74aca3', '#74aca3', '#74aca3', '#74aca3', '#74aca3', '#74aca3', '#74aca3', '#000000', '#74aca3', '#74aca3', '#000000', '#000000', '#000000', '#000000', '#000000', '#000000', '#000000', '#000000', '#74aca3', '#74aca3', '#74aca3', '#74aca3', '#74aca3', '#74aca3', '#74aca3', '#74aca3', '#74aca3', '#74aca3', '#74aca3', '#74aca3']
         }
     }
+}
+
+const animaciones = {
+    prenacimiento: {
+        padre: 'huevo',
+        animacion: ['huevo0','huevo1']
+    } 
 }

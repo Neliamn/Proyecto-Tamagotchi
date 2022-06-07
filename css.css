@@ -4,7 +4,7 @@
 }
 
 body {
-    background-image: url(multimedia/sunrise-landscape-of-morning-scene-mountains-hill-lake-and-valley-in-flat-nature-for-poster-banner-or-background-illustration-vector.jpg);
+    background-image: url(multimedia/sunrise.jpg);
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -26,11 +26,29 @@ body {
 }
 
 .centro {
-    height: 50vh;
+
     border: 1px solid black;
    background-color: grey;
    border: 5px inset #bcbcbd;  /* Grosor del Borde /  / Color del Borde */
    color: white;  /* Color del texto */
    text-align: center;  /* Alineación del texto */
    text-shadow: -1px -1px rgba(0,0,0,.2);
+}
+
+.flex-container {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    justify-content: space-around; 
+}
+.flex-item {
+    background: rgb(192, 192, 192);
+    margin: 0.5px;
+    color: white;
+    font-weight: bold;
+    font-size:  em;
+    text-align: center;
+    flex: 1 0 auto;
+    aspect-ratio: 1 / 1 ;
 }
