@@ -1,27 +1,56 @@
-/* los ciclos del tama son huevo, bebe, adulto, muerto */
-const numeroCiclos = 4;
-let cicloActual = 1;
-/* las opciones de menu son comer, limpiar, dormir, jugar, curar, mimos */
-let opcionMenuActual = 1;
-let humor = 5;
-let salud = 5;
-let hambre = 5;
-let amor = 0;
-let sucio = false;
-let enfermo = false;
-let vecesPulsadoBotonCentro = 0;
-let iniciado = false;
+
+let tamagotchi = {
+    opcionMenuActual :1, 
+    humor:5,
+    salud:5,
+    hambre: 5,
+    amor: 0,
+    sucio : false,
+    enfermo: false,
+    vecesPulsadoBotonCentro: 0,
+    iniciado: false,
+    cicloActual:1,
+    numeroCiclos: 4,
+    intervals : {},
+    stopCurrentInterval : false,
+}
 
 inicializarGrid(sprites.pantallaInicio.pantallaInicio0);
+inicializarDesdeMemoria();
+
+function inicializarDesdeMemoria() {
+    let memoria = obtenerDeStorage('info');
+    if(memoria != undefined && memoria != ''){
+        tamagotchi = memoria;
+        switch(tamagotchi.cicloActual){
+            case 1:
+                eclosion();
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+        }
+    }    
+    else{
+        
+        animacionInicial(animaciones);
+        alert ('pulsa el botón central para que nazca tu tamagotchi')
+     
+    }
+}
 
 function clickBotonCentro () {
-    if (!iniciado) {
-        if (vecesPulsadoBotonCentro<5) {
-            vecesPulsadoBotonCentro ++;
+    if (!tamagotchi.iniciado) {
+        if (tamagotchi.vecesPulsadoBotonCentro<5) {
+            tamagotchi.vecesPulsadoBotonCentro ++;
         }
         else {
-            iniciado=true;
-            inicio ();
+            tamagotchi.iniciado=true;
+            guardarEnStorage(tamagotchi);
+            eclosion ();
         }
 
     }
@@ -150,4 +179,54 @@ function generadorFilas(objetoSprite){
 
 function generadorColumnas(indiceFila, indiceColumna, color){
     return `<div id='${indiceFila + '_' + indiceColumna}' class="flex-item" style='background-color:${color}'></div>`;
+}
+
+function guardarEnStorage (info){
+    let data = JSON.stringify(info);
+    localStorage.setItem('info', data);
+}
+function obtenerDeStorage (key){
+    let data = localStorage.getItem (key);
+    return JSON.parse(data);    
+}
+function animacionInicial(animaciones){
+    tamagotchi.stopCurrentInterval = false;
+    let animacion = animaciones.prenacimiento;
+    tamagotchi.intervals['init'] = setInterval(runAnimation(animacion), 1000);
+}
+function runAnimation(animacion){
+
+    let currentIndex = animacion.currentIndex;
+    let padre = animacion.padre;
+    let currentAnimacion = animacion.animacion[currentIndex];
+    let tamanio = animacion.animacion.length;
+
+    inicializarGrid(sprites[padre][currentAnimacion]);
+
+    setTimeout(()=>{
+        clearInterval(tamagotchi.intervals['init']);
+        if(currentIndex == (tamanio -1)){
+            if(!animacion.loop){
+                tamagotchi.stopCurrentInterval = true;
+                return;
+            }
+            currentIndex = 0;
+            animacion.currentIndex = currentIndex;
+        }
+        else{
+            currentIndex = currentIndex + 1;
+            animacion.currentIndex = currentIndex;
+        }
+        if(tamagotchi.stopCurrentInterval){
+            return;
+        }else{
+            tamagotchi.intervals['init'] = setInterval(runAnimation(animacion), 1000);
+        }
+
+    }, 1000);
+}
+function eclosion(){
+    tamagotchi.stopCurrentInterval = false;
+    let animacion = animaciones.eclosion;
+    tamagotchi.intervals['init'] = setInterval(runAnimation(animacion), 1000);
 }
