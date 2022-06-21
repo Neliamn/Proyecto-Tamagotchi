@@ -6,11 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <link rel="stylesheet" href="css.css">
 
 
@@ -19,9 +22,15 @@
 <body>
     <div class="container-fluid">
         <div class="row">
+            <div class="col-sm-11"></div>
+            <div class="col-sm-1">
+                <button id="pasar" class="botonAction reset d-block mx-auto"
+                onclick="clickBotonReset()">Reset</button>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-sm">
-                <img class="rounded mx-auto d-block imagenCabecera" src="multimedia/cropped-tamagotchi-banner.png"
-                    alt="">
+                <img class="rounded mx-auto d-block imagenCabecera" src="multimedia/cropped-tamagotchi-banner.png" alt="">
             </div>
         </div>
         <div id="pantallaJuego" class="row">
@@ -43,7 +52,8 @@
                 <div class="row">
                     <div class="row">
                         <div class="col-6">
-                            <button id="pasar" class="botonAction d-block mx-auto" onclick="clickBotonIzquierdo()"></button>
+                            <button id="pasar" class="botonAction d-block mx-auto"
+                                onclick="clickBotonIzquierdo()"></button>
                         </div>
                         <div class="col-6">
                             <button id="esc" class="botonAction d-block mx-auto" onclick="clickBotonDerecha()"></button>
@@ -51,9 +61,13 @@
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <button id="enter" class="botonAction d-block mx-auto" onclick="clickBotonCentro()"></button>
+                            <button id="enter" class="botonAction d-block mx-auto"
+                                onclick="clickBotonCentro()"></button>
                         </div>
                     </div>
+                </div>
+                <div id="mensajeNacimiento" class="row">
+                    <h3>Pulse el botón central repetidamente para que el tamagotchi nazca.</h3>
                 </div>
             </div>
             <div class="col-sm"></div>

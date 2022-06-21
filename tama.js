@@ -20,7 +20,11 @@ inicializarDesdeMemoria();
 
 function inicializarDesdeMemoria() {
     let memoria = obtenerDeStorage('info');
+
     if(memoria != undefined && memoria != ''){
+        
+        memoria.iniciado ? document.getElementById('mensajeNacimiento').style.display = 'none': false;
+        
         tamagotchi = memoria;
         switch(tamagotchi.cicloActual){
             case 1:
@@ -35,9 +39,17 @@ function inicializarDesdeMemoria() {
         }
     }    
     else{
-        
+        document.getElementById('mensajeNacimiento').style.display = '';
         animacionInicial(animaciones);
-        alert ('pulsa el botón central para que nazca tu tamagotchi')
+        Swal.fire({
+            title: 'Pulsa el botón central para que nazca tu tamagotchi',
+            showClass: {
+              popup: 'animate__animated animate__fadeInDown'
+            },
+            hideClass: {
+              popup: 'animate__animated animate__fadeOutUp'
+            }
+          })
      
     }
 }
@@ -47,8 +59,9 @@ function clickBotonCentro () {
         if (tamagotchi.vecesPulsadoBotonCentro<5) {
             tamagotchi.vecesPulsadoBotonCentro ++;
         }
-        else {
+        else {        
             tamagotchi.iniciado=true;
+            tamagotchi.iniciado ? document.getElementById('mensajeNacimiento').style.display = 'none': false;
             guardarEnStorage(tamagotchi);
             eclosion ();
         }
@@ -62,6 +75,30 @@ function clickBotonDerecha(){
 
 function clickBotonIzquierdo(){
     inicializarGrid(sprites.huevo.huevo0);
+}
+
+function clickBotonReset(){
+    limpiarStorage();
+    inicializaTamagotchi();
+    inicializarDesdeMemoria();
+}
+
+function inicializaTamagotchi(){
+    tamagotchi = {
+        opcionMenuActual :1, 
+        humor:5,
+        salud:5,
+        hambre: 5,
+        amor: 0,
+        sucio : false,
+        enfermo: false,
+        vecesPulsadoBotonCentro: 0,
+        iniciado: false,
+        cicloActual:1,
+        numeroCiclos: 4,
+        intervals : {},
+        stopCurrentInterval : false,
+    };
 }
 
 function inicio () {
@@ -112,12 +149,7 @@ function comprobacionSprites(){
 
 function comprarTamanioFilas(coleccion, nombre){
 
-    if(coleccion.length == 16){
-        console.log(`La coleccion de datos para ${nombre} es correcta.`);
-    }
-    else{
-        console.log(`La coleccion de datos para ${nombre} NO es correcta.`);
-    }
+    coleccion.length == 16 ? console.log(`La coleccion de datos para ${nombre} es correcta.`) : console.log(`La coleccion de datos para ${nombre} NO es correcta.`);
 
 }
 
@@ -189,6 +221,12 @@ function obtenerDeStorage (key){
     let data = localStorage.getItem (key);
     return JSON.parse(data);    
 }
+
+function limpiarStorage () {
+    localStorage.clear();
+}
+
+
 function animacionInicial(animaciones){
     tamagotchi.stopCurrentInterval = false;
     let animacion = animaciones.prenacimiento;
@@ -214,7 +252,7 @@ function runAnimation(animacion){
             animacion.currentIndex = currentIndex;
         }
         else{
-            currentIndex = currentIndex + 1;
+            currentIndex ++;
             animacion.currentIndex = currentIndex;
         }
         if(tamagotchi.stopCurrentInterval){
