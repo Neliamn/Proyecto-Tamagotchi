@@ -56,3 +56,16 @@ body {
     flex: 1 0 auto;
     aspect-ratio: 1 / 1 ;
 }
+
+.imageMenu {
+    margin: 20px;
+    width: 50px;
+}
+
+.columnaMenu {
+    border-right: 1px solid black;
+}
+
+.menuItemActive {
+    background-color: lightgray;
+}
