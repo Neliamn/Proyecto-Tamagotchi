@@ -13,10 +13,9 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
     <link rel="stylesheet" href="css.css">
-
-
+    <script src="animations.js" async></script>
+    <script src="tama.js" async></script>
 </head>
 
 <body>
@@ -24,8 +23,7 @@
         <div class="row">
             <div class="col-sm-11"></div>
             <div class="col-sm-1">
-                <button id="pasar" class="botonAction reset d-block mx-auto"
-                onclick="clickBotonReset()">Reset</button>
+                <button id="reset" class="botonAction reset d-block mx-auto">Reset</button>
             </div>
         </div>
         <div class="row">
@@ -60,17 +58,15 @@
                 <div class="row">
                     <div class="row">
                         <div class="col-6">
-                            <button id="pasar" class="botonAction d-block mx-auto"
-                                onclick="clickBotonIzquierdo()"></button>
+                            <button id="pasar" class="botonAction d-block mx-auto"></button>
                         </div>
                         <div class="col-6">
-                            <button id="esc" class="botonAction d-block mx-auto" onclick="clickBotonDerecha()"></button>
+                            <button id="esc" class="botonAction d-block mx-auto"></button>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <button id="enter" class="botonAction d-block mx-auto"
-                                onclick="clickBotonCentro()"></button>
+                            <button id="enter" class="botonAction d-block mx-auto"></button>
                         </div>
                     </div>
                 </div>
@@ -86,8 +82,6 @@
 
 
     </div>
-    <script src="animations.js"></script>
-    <script src="tama.js"></script>
 </body>
 
 </html>
