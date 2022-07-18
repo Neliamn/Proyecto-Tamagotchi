@@ -39,7 +39,7 @@ let tamagotchi = {
 
 let sprites;
 enlazarEventos();
-cargarSpriteJSON() 
+cargarSpriteJSON()
 
 
 
@@ -51,7 +51,7 @@ function inicializarDesdeMemoria() {
 
     if (memoria != undefined && memoria != '') {
 
-        if(memoria.iniciado){
+        if (memoria.iniciado) {
             document.getElementById('mensajeNacimiento').style.display = 'none';
             document.querySelector('#pasar').disabled = false;
         }
@@ -215,11 +215,12 @@ function runAnimationByPromises(animacion) {
 function controlHambre() {
     return new Promise(function (resolve, reject) {
         setTimeout(function () {
+            console.log("controlHambre")
             //Restamos uno de comida.
             let memoria = obtenerTamagotchiDeStorage();
-            if(memoria.hambre > 0){
+            if (memoria.hambre > 0) {
                 memoria.hambre--;
-            }        
+            }
             guardarEnStorage(memoria);
             controlHambre();
         }, 60000);
@@ -230,11 +231,12 @@ function controlHambre() {
 function controlSueno() {
     return new Promise(function (resolve, reject) {
         setTimeout(function () {
+            console.log("controlSueno")
             //Restamos uno del sueño
             let memoria = obtenerTamagotchiDeStorage();
-            if(memoria.sueno > 0){
+            if (memoria.sueno > 0) {
                 memoria.sueno--;
-            }        
+            }
             guardarEnStorage(memoria);
             controlSueno();
         }, 120000);
@@ -245,7 +247,7 @@ function controlAdulto() {
     return new Promise(function (resolve, reject) {
         setTimeout(function () {
             let memoria = obtenerTamagotchiDeStorage();
-            if(memoria.cicloActual == 16){
+            if (memoria.cicloActual == 16) {
                 return;
             }
             memoria.fase = 'adulto';
@@ -261,25 +263,25 @@ function controlAdulto() {
 function controlSalud() {
     return new Promise(function (resolve, reject) {
         setTimeout(function () {
-            
+            console.log("controlSalud")
             let memoria = obtenerTamagotchiDeStorage();
 
-            if((memoria.hambre == 0 || memoria.cicloActual == 5 
-                || memoria.cicloActual == 12 || memoria.sueno == 0 
-                || memoria.cicloActual  == 9 || memoria.cicloActual == 15) && memoria.salud > 0){
-                memoria.salud = memoria.salud -1;
+            if ((memoria.hambre == 0 || memoria.cicloActual == 5
+                || memoria.cicloActual == 12 || memoria.sueno == 0
+                || memoria.cicloActual == 9 || memoria.cicloActual == 15) && memoria.salud > 0) {
+                memoria.salud = memoria.salud - 1;
                 guardarEnStorage(memoria);
             }
 
-            if(memoria.salud <= 3 && (memoria.cicloActual != 9 && memoria.cicloActual != 15)){
-                if(memoria.fase == 'bebe'){
-                    cambioDeEtapa(animaciones.enfermo_bebe, 9);    
-                }else{
-                    cambioDeEtapa(animaciones.enfermo_adulto, 15);    
+            if (memoria.salud <= 3 && (memoria.cicloActual != 9 && memoria.cicloActual != 15)) {
+                if (memoria.fase == 'bebe') {
+                    cambioDeEtapa(animaciones.enfermo_bebe, 9);
+                } else {
+                    cambioDeEtapa(animaciones.enfermo_adulto, 15);
                 }
             }
 
-            if(memoria.salud == 0){
+            if (memoria.salud == 0) {
                 cambioDeEtapa(animaciones.muerto, 16);
                 document.querySelector('#pasar').disabled = true;
                 document.querySelector('#esc').disabled = true;
@@ -289,6 +291,7 @@ function controlSalud() {
 
             controlSalud();
 
+
         }, 30000);
     });
 }
@@ -297,10 +300,10 @@ function controlSalud() {
 function controlCagar(animacion, cicloActual) {
     return new Promise(function (resolve, reject) {
         setTimeout(function () {
-        
+
             let memoria = obtenerTamagotchiDeStorage();
 
-            if(animacion.padre != memoria.fase || memoria.cicloActual == 5 || memoria.cicloActual == 12 || memoria.cicloActual == 20 || memoria.cicloActual == 10){
+            if (animacion.padre != memoria.fase || memoria.cicloActual == 5 || memoria.cicloActual == 12 || memoria.cicloActual == 20 || memoria.cicloActual == 10) {
                 return;
             }
 
@@ -311,7 +314,7 @@ function controlCagar(animacion, cicloActual) {
 
 
 
-function cambioDeEtapa(animacion, cicloActual){
+function cambioDeEtapa(animacion, cicloActual) {
     let memoria = obtenerTamagotchiDeStorage();
     memoria.cicloActual = cicloActual;
     guardarEnStorage(memoria);
@@ -346,7 +349,7 @@ function cargarSpriteJSON() {
         .catch((error) => console.log('Se ha producido un error al recuperar la información del JSON.' + error));
 }
 
-function acciones(animacion, cicloactual){
+function acciones(animacion, cicloactual) {
     let memoria = obtenerTamagotchiDeStorage();
     memoria.cicloActual = cicloactual;
     guardarEnStorage(memoria);
@@ -361,7 +364,7 @@ function acciones(animacion, cicloactual){
 /**
  * Esta función enlaza los botones con un evento de click.
  */
- function enlazarEventos(){
+function enlazarEventos() {
 
     //El botón de la izquierda está desactivado hasta que no se haya inicializado el tamagotchi (haya nacido)
     document.querySelector('#pasar').disabled = true;
@@ -409,116 +412,117 @@ function clickBotonCentro() {
             document.querySelector('#pasar').disabled = false;
         }
 
-    }else{
-        let menuActivo  = document.querySelector('.menuItemActive');
-        if(menuActivo != undefined){
+    } else {
+        let menuActivo = document.querySelector('.menuItemActive');
+        if (menuActivo != undefined) {
             let action = menuActivo.id;
             let fase = memoria.fase;
-            if(fase == 'bebe'){
-                switch(action){
+            if (fase == 'bebe') {
+                switch (action) {
                     case 'comer':
                         /**
                          * Si está cagado o ya está comiendo, está enfermo , muerto o durmiendo el tamagotchi no comerá.
                          */
-                        if(memoria.cicloActual == 5 
+                        if (memoria.cicloActual == 5
                             || memoria.cicloActual == 6
                             || memoria.cicloActual == 9
                             || memoria.cicloActual == 16
-                            || memoria.cicloActual == 7){
+                            || memoria.cicloActual == 7) {
                             return;
                         }
-                        if(memoria.hambre < 5){
+                        if (memoria.hambre < 5) {
                             memoria.hambre = memoria.hambre + 1;
-                        }                        
+                        }
                         guardarEnStorage(memoria);
-                        acciones(animaciones.comer_bebe,6);
-                        controlCagar(animaciones.bebe_cagado,5);
+                        acciones(animaciones.comer_bebe, 6);
+                        controlCagar(animaciones.bebe_cagado, 5);
                         break;
-                    case 'limpiar':   
-                        if( memoria.cicloActual == 6 || memoria.cicloActual == 7 || memoria.cicloActual == 16){
+                    case 'limpiar':
+                        if (memoria.cicloActual == 6 || memoria.cicloActual == 7 || memoria.cicloActual == 16) {
                             return;
-                        }          
+                        }
                         acciones(animaciones.barrer_bebe, 10);
-                        break;    
+                        break;
                     case 'curar':
                         /**
                          * Solo si está enfermo
                          */
-                         memoria.salud = 5;
-                         guardarEnStorage(memoria);
-                        if(memoria.cicloActual != 9){
+                        memoria.salud = 5;
+                        guardarEnStorage(memoria);
+                        if (memoria.cicloActual != 9) {
                             return;
-                        }                        
-                        acciones(animaciones.curar_bebe, 8);   
-                        break; 
+                        }
+                        acciones(animaciones.curar_bebe, 8);
+                        break;
                     case 'luz':
                         memoria.sueno = 5;
                         guardarEnStorage(memoria);
-                        if(memoria.cicloActual == 5 
+                        if (memoria.cicloActual == 5
                             || memoria.cicloActual == 6
                             || memoria.cicloActual == 9
-                            || memoria.cicloActual == 16){
+                            || memoria.cicloActual == 16) {
                             return;
                         }
 
-                        if(memoria.cicloActual == 7){
-                            acciones(animaciones.bebe, 2);  
-                        }else{
-                            acciones(animaciones.dormir_bebe, 7);  
-                        }                        
+                        if (memoria.cicloActual == 7) {
+                            acciones(animaciones.bebe, 2);
+                        } else {
+                            acciones(animaciones.dormir_bebe, 7);
+                        }
                         break;
                 }
             }
-            else if(fase == 'adulto'){
-                switch(action){
+            else if (fase == 'adulto') {
+                switch (action) {
                     case 'comer':
                         /**
                          * Si está cagado o ya está comiendo, está enfermo o muerto, el tamagotchi no comerá.
                          */
-                        if(memoria.cicloActual == 12 
+                        if (memoria.cicloActual == 12
                             || memoria.cicloActual == 11
                             || memoria.cicloActual == 15
                             || memoria.cicloActual == 16
-                            || memoria.cicloActual == 14){
+                            || memoria.cicloActual == 14) {
                             return;
                         }
                         memoria.hambre = memoria.hambre + 1;
                         guardarEnStorage(memoria);
-                        acciones(animaciones.comer_adulto,11);
-                        controlCagar(animaciones.adulto_cagado,12);
+                        acciones(animaciones.comer_adulto, 11);
+                        controlCagar(animaciones.adulto_cagado, 12);
                         break;
                     case 'limpiar':
-                        if( memoria.cicloActual == 11 || memoria.cicloActual == 14 || memoria.cicloActual == 16){
+                        if (memoria.cicloActual == 11 || memoria.cicloActual == 14 || memoria.cicloActual == 16) {
                             return;
-                        }        
+                        }
                         acciones(animaciones.barrer_adulto, 20);
-                        break; 
+                        break;
                     case 'curar':
                         /**
                          * Solo si está enfermo
                          */
-                        if(memoria.cicloActual != 15){
-                            return;
-                        }   
                         memoria.salud = 5;
                         guardarEnStorage(memoria);
-                        acciones(animaciones.curar_adulto, 13);    
+                        if (memoria.cicloActual != 15) {
+                            return;
+                        }
+
+                        acciones(animaciones.curar_adulto, 13);
                     case 'luz':
                         memoria.sueno = 5;
                         guardarEnStorage(memoria);
-                        if(memoria.cicloActual == 12 
+                        if (memoria.cicloActual == 12
                             || memoria.cicloActual == 11
                             || memoria.cicloActual == 15
-                            || memoria.cicloActual == 16){
+                            || memoria.cicloActual == 16) {
                             return;
                         }
-                        if(memoria.cicloActual == 14){
-                            acciones(animaciones.adulto, 3);  
-                        }else{
-                            acciones(animaciones.dormir_adulto, 14);  
-                        }                        
+                        if (memoria.cicloActual == 14) {
+                            acciones(animaciones.adulto, 3);
+                        } else {
+                            acciones(animaciones.dormir_adulto, 14);
+                        }
 
-                        break;                                                  
+                        break;
                 }
             }
         }
@@ -526,27 +530,27 @@ function clickBotonCentro() {
     }
 }
 
-function clickBotonDerecho(){
+function clickBotonDerecho() {
     let memoria = obtenerTamagotchiDeStorage();
-    
-    if(memoria.cicloActualInfo == 2){
+
+    if (memoria.cicloActualInfo == 2) {
         memoria.cicloActualInfo = 0;
-    }else{
+    } else {
         memoria.cicloActualInfo = memoria.cicloActualInfo + 1;
     }
     guardarEnStorage(memoria);
     let animacion = modificaPantallaAnimacion();
-    controlPantallaInfo(memoria.cicloActualInfo, memoria.cicloActualNombres[memoria.cicloActual],animacion, memoria.cicloActual);
+    controlPantallaInfo(memoria.cicloActualInfo, memoria.cicloActualNombres[memoria.cicloActual], animacion, memoria.cicloActual);
 
 }
 
 
-function controlPantallaInfo(pantallaInfo, currentAnimation, animacionReproducir, cicloActual){
+function controlPantallaInfo(pantallaInfo, currentAnimation, animacionReproducir, cicloActual) {
     let memoria = obtenerTamagotchiDeStorage();
 
     let animacion = buscarPorNumeroCiclo(cicloActual);
 
-    switch(pantallaInfo){
+    switch (pantallaInfo) {
         case 0:
             animaciones.pantalla_hambre.next = animacion;
             memoria.cicloActual = 17;
@@ -568,18 +572,18 @@ function controlPantallaInfo(pantallaInfo, currentAnimation, animacionReproducir
     }
 }
 
-function buscarPorNumeroCiclo(numeroCiclo){
+function buscarPorNumeroCiclo(numeroCiclo) {
 
     const padres = Object.keys(animaciones);
 
     let animacion = null;
 
     padres.forEach(item => {
-        if(numeroCiclo == animaciones[item].cicloActual){
+        if (numeroCiclo == animaciones[item].cicloActual) {
             animacion = item;
-        }        
+        }
     });
-    
+
     return animacion;
 }
 
@@ -591,7 +595,7 @@ function modificaPantallaAnimacion() {
     let animacion;
     let estado;
 
-    switch(memoria.cicloActualInfo){
+    switch (memoria.cicloActualInfo) {
         case 0:
             animacion = sprites.funciones.hambre;
             estado = memoria.hambre;
@@ -604,27 +608,27 @@ function modificaPantallaAnimacion() {
             animacion = sprites.funciones.sueno;
             estado = memoria.sueno;
             break;
-    }        
+    }
 
-    let primeraFila = animacion['fila'+filaInicio1];
-    if(estado == 0){
-        for(let i = 12; i<27; i++){
+    let primeraFila = animacion['fila' + filaInicio1];
+    if (estado == 0) {
+        for (let i = 12; i < 27; i++) {
             primeraFila[i] = '#74aca3';
         }
     }
-    else{
-        for(let i = 0; i< estado; i++){
-            for(let a = ((i * 3) + columnaInicio) ; a < (((i * 3) + columnaInicio) + 3) ; a++){
+    else {
+        for (let i = 0; i < estado; i++) {
+            for (let a = ((i * 3) + columnaInicio); a < (((i * 3) + columnaInicio) + 3); a++) {
                 primeraFila[a] = '#000000';
             }
-            for(let a = estado * 3 + columnaInicio; a <27; a ++){
+            for (let a = estado * 3 + columnaInicio; a < 27; a++) {
                 primeraFila[a] = '#74aca3';
             }
         }
     }
 
-    animacion['fila'+filaInicio1] = primeraFila;
-    animacion['fila'+filaInicio2] = primeraFila;
+    animacion['fila' + filaInicio1] = primeraFila;
+    animacion['fila' + filaInicio2] = primeraFila;
     return animacion;
 }
 
@@ -633,20 +637,20 @@ function clickBotonIzquierdo() {
 
     let active = -1;
 
-    botonesMenu.forEach((item,index)=> {
-        if(item.classList.contains('menuItemActive')){
-            botonesMenu[0].classList.remove('menuItemActive'); 
+    botonesMenu.forEach((item, index) => {
+        if (item.classList.contains('menuItemActive')) {
+            botonesMenu[0].classList.remove('menuItemActive');
             active = index;
         }
     });
 
-    if(active == -1){
-        botonesMenu[0].classList.add('menuItemActive'); 
-    }else if(active == (menu.length -1)){
+    if (active == -1) {
+        botonesMenu[0].classList.add('menuItemActive');
+    } else if (active == (menu.length - 1)) {
         botonesMenu[active].classList.remove('menuItemActive');
-    }else{
-        botonesMenu[active].classList.remove('menuItemActive'); 
-        botonesMenu[active + 1].classList.add('menuItemActive'); 
+    } else {
+        botonesMenu[active].classList.remove('menuItemActive');
+        botonesMenu[active + 1].classList.add('menuItemActive');
     }
 
 }
@@ -659,7 +663,7 @@ function clickBotonReset() {
     guardarEnStorage(memoria);
     setTimeout(function () {
         limpiarStorage();
-        document.querySelector('.menuItemActive')?document.querySelector('.menuItemActive').classList.remove('menuItemActive'):'';
+        document.querySelector('.menuItemActive') ? document.querySelector('.menuItemActive').classList.remove('menuItemActive') : '';
         inicializarDesdeMemoria();
         //Volvemos a activar el botón de reset.
         document.querySelector('#reset').disabled = false;
