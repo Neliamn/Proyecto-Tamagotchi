@@ -67,8 +67,8 @@ function inicializarDesdeMemoria() {
             case 3:
                 cambioDeEtapa(animaciones.adulto, 3);
                 break;
-            case 4:
-                cambioDeEtapa(animaciones.muerto, 4);
+            case 16:
+                cambioDeEtapa(animaciones.muerto, 16);
                 break;
         }
     }
