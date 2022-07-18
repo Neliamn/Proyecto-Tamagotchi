@@ -107,7 +107,7 @@ let tamagotchi = {
 Este objeto sirve de plantilla y durante la ejecución del programa, será almacenado y obtenido del local storage mediante unas funciones desarrolladas a tal efecto.
 
 Barajamos un tiempo de 5 minutos para convertirse en adulto. 
-El estado de saciedad o hambre, baja un punto cada 50 segundos.
+El estado de saciedad o hambre, baja un punto cada 60 segundos.
 El estado del sueño, baja cada 2 minutos.
 El estado de salud baja dependiendo de los estados anteriores. Más concretamente, si el Tamagotchi está con el estado de hambre a 0, el sueño es 0 o su estado de salud es 3 o inferior (punto en el que empieza a enfermar), bajará 1 punto de salud cada 30 segundos, mientras no se cure. Llegado a una salud de 0, el Tamagotchi morirá.
 Una vez muerto el Tamagotchi, los controles se bloquean y el usuario está obligado a resetearlo.

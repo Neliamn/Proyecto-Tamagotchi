@@ -117,7 +117,7 @@ const animaciones = {
         padre: 'funciones',
         animacion: ['barrer1','barrer2','barrer3','barrer4','barrer5','barrer6'],
         currentIndex: 0,
-        cicloActual: 16,
+        cicloActual: 20,
         next: 'adulto'       
     },
     pantalla_hambre: {

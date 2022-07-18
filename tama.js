@@ -218,7 +218,7 @@ function controlHambre() {
             }        
             guardarEnStorage(memoria);
             controlHambre();
-        }, 50000);
+        }, 60000);
     });
 }
 
@@ -293,16 +293,13 @@ function controlSalud() {
 function controlCagar(animacion, cicloActual) {
     return new Promise(function (resolve, reject) {
         setTimeout(function () {
-            //Restamos uno de comida.
+        
             let memoria = obtenerTamagotchiDeStorage();
 
-            if(memoria.cicloActual == 5 || memoria.cicloActual == 12){
+            if(animacion.padre != memoria.fase || memoria.cicloActual == 5 || memoria.cicloActual == 12 || memoria.cicloActual == 20 || memoria.cicloActual == 10){
                 return;
             }
 
-            if(animacion.padre != memoria.fase){
-                return;
-            }
             cambioDeEtapa(animacion, cicloActual);
         }, 30000);
     });
