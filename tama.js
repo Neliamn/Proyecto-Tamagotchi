@@ -28,7 +28,11 @@ let tamagotchi = {
         'adulto',   //13
         'adulto',   //14
         'adulto',   //15
-        'adulto'    //16
+        'adulto',   //16
+        '',
+        '',
+        '',
+        'adulto',   //20
     ],
     cicloActualInfo: -1
 }
@@ -440,13 +444,13 @@ function clickBotonCentro() {
                         /**
                          * Solo si está enfermo
                          */
+                         memoria.salud = 5;
+                         guardarEnStorage(memoria);
                         if(memoria.cicloActual != 9){
                             return;
-                        }    
-                        
-                        memoria.salud = 5;
-                        guardarEnStorage(memoria);
-                        acciones(animaciones.curar_bebe, 8);    
+                        }                        
+                        acciones(animaciones.curar_bebe, 8);   
+                        break; 
                     case 'luz':
                         memoria.sueno = 5;
                         guardarEnStorage(memoria);
@@ -487,7 +491,7 @@ function clickBotonCentro() {
                         if( memoria.cicloActual == 11 || memoria.cicloActual == 14 || memoria.cicloActual == 16){
                             return;
                         }        
-                        acciones(animaciones.barrer_adulto, 16);
+                        acciones(animaciones.barrer_adulto, 20);
                         break; 
                     case 'curar':
                         /**
@@ -500,6 +504,8 @@ function clickBotonCentro() {
                         guardarEnStorage(memoria);
                         acciones(animaciones.curar_adulto, 13);    
                     case 'luz':
+                        memoria.sueno = 5;
+                        guardarEnStorage(memoria);
                         if(memoria.cicloActual == 12 
                             || memoria.cicloActual == 11
                             || memoria.cicloActual == 15
@@ -507,12 +513,11 @@ function clickBotonCentro() {
                             return;
                         }
                         if(memoria.cicloActual == 14){
-                            acciones(animaciones.adulto, 2);  
+                            acciones(animaciones.adulto, 3);  
                         }else{
-                            acciones(animaciones.dormir_adulto, 7);  
+                            acciones(animaciones.dormir_adulto, 14);  
                         }                        
-                        memoria.sueno = 5;
-                        guardarEnStorage(memoria);
+
                         break;                                                  
                 }
             }

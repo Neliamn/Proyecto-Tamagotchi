@@ -94,7 +94,7 @@ const animaciones = {
     },
     dormir_adulto:{
         cicloActual: 14,
-        padre: 'adulto',
+        padre: 'funciones',
         animacion: ['dormir1','dormir2'],
         currentIndex: 0,
         next: 'dormir_adulto'
