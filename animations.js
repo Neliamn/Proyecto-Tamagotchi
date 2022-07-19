@@ -102,7 +102,7 @@ const animaciones = {
     enfermo_adulto:{
         cicloActual: 15,
         padre: 'adulto',
-        animacion: ['adultoEnfermo1','adultoenfermo2'],
+        animacion: ['adultoEnfermo1'],
         currentIndex: 0,
         next: 'enfermo_adulto'
     },

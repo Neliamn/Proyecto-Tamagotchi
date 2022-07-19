@@ -507,6 +507,7 @@ function clickBotonCentro() {
                         }
 
                         acciones(animaciones.curar_adulto, 13);
+                        break;
                     case 'luz':
                         memoria.sueno = 5;
                         guardarEnStorage(memoria);
